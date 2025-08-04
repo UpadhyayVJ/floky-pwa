@@ -1,86 +1,88 @@
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#764ba2" />
-    <meta name="description" content="Floky - Challenge friends daily with 30-second videos" />
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1"/>
+    <meta name="theme-color" content="#764ba2"/>
+    <meta name="description" content="Floky - Challenge friends daily with 30-second videos"/>
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <meta name="apple-mobile-web-app-title" content="Floky">
     <link rel="manifest" href="/manifest.json">
     <title>Floky - Challenge Friends Daily</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             color: white;
         }
-
+        
         .container {
             max-width: 400px;
             margin: 0 auto;
             padding: 20px;
             min-height: 100vh;
         }
-
+        
         .header {
             text-align: center;
             padding: 40px 0;
         }
-
+        
         .logo {
             font-size: 48px;
             font-weight: bold;
             margin-bottom: 10px;
         }
-
+        
         .tagline {
             font-size: 18px;
             opacity: 0.9;
             margin-bottom: 40px;
         }
-
+        
         .screen {
             display: none;
         }
-
-            .screen.active {
-                display: block;
-            }
-
+        
+        .screen.active {
+            display: block;
+        }
+        
         .feature-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 24px;
             margin-bottom: 20px;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: transform 0.2s;
         }
-
+        
+        .feature-card:hover {
+            transform: translateY(-2px);
+        }
+        
         .feature-icon {
             font-size: 32px;
             margin-bottom: 12px;
         }
-
+        
         .feature-title {
             font-size: 20px;
             font-weight: 600;
             margin-bottom: 8px;
         }
-
+        
         .feature-desc {
             font-size: 14px;
             opacity: 0.8;
             line-height: 1.4;
         }
-
+        
         .btn {
             width: 100%;
             padding: 16px;
@@ -90,34 +92,47 @@
             font-weight: 600;
             cursor: pointer;
             margin-bottom: 12px;
-            transition: transform 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
-
+        
+        .btn:active {
+            transform: scale(0.98);
+        }
+        
         .btn-primary {
             background: white;
             color: #764ba2;
         }
-
-            .btn-primary:hover {
-                transform: translateY(-2px);
-            }
-
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
         .btn-secondary {
             background: rgba(255, 255, 255, 0.2);
             color: white;
             border: 1px solid rgba(255, 255, 255, 0.3);
         }
-
+        
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
         .form-group {
             margin-bottom: 20px;
         }
-
-            .form-group label {
-                display: block;
-                margin-bottom: 8px;
-                font-weight: 600;
-            }
-
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
         .form-input {
             width: 100%;
             padding: 12px 16px;
@@ -127,16 +142,17 @@
             color: white;
             font-size: 16px;
         }
-
-            .form-input::placeholder {
-                color: rgba(255, 255, 255, 0.7);
-            }
-
-            .form-input:focus {
-                outline: none;
-                border-color: rgba(255, 255, 255, 0.8);
-            }
-
+        
+        .form-input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        
         .nav-tabs {
             display: flex;
             background: rgba(255, 255, 255, 0.1);
@@ -144,7 +160,7 @@
             padding: 4px;
             margin-bottom: 20px;
         }
-
+        
         .nav-tab {
             flex: 1;
             padding: 12px;
@@ -152,20 +168,25 @@
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
+            transition: all 0.3s ease;
         }
-
-            .nav-tab.active {
-                background: white;
-                color: #764ba2;
-            }
-
+        
+        .nav-tab:active {
+            transform: scale(0.98);
+        }
+        
+        .nav-tab.active {
+            background: white;
+            color: #764ba2;
+        }
+        
         .auth-form {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 16px;
             padding: 24px;
             border: 1px solid rgba(255, 255, 255, 0.2);
         }
-
+        
         .error-message, .success-message {
             padding: 12px;
             border-radius: 8px;
@@ -173,48 +194,59 @@
             text-align: center;
             display: none;
         }
-
+        
         .error-message {
             background: rgba(239, 68, 68, 0.2);
             border: 1px solid rgba(239, 68, 68, 0.3);
         }
-
+        
         .success-message {
             background: rgba(16, 185, 129, 0.2);
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
-
+        
         .dashboard-cards {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 16px;
             margin-bottom: 20px;
         }
-
+        
         .stat-card {
             background: rgba(255, 255, 255, 0.1);
             border-radius: 12px;
             padding: 20px;
             text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
-
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .stat-card:active {
+            transform: scale(0.98);
+        }
+        
         .stat-icon {
             font-size: 24px;
             margin-bottom: 8px;
         }
-
+        
         .stat-number {
             font-size: 20px;
             font-weight: bold;
             margin-bottom: 4px;
         }
-
+        
         .stat-label {
             font-size: 12px;
             opacity: 0.8;
         }
-
+        
         .app-status {
             text-align: center;
             padding: 20px;
@@ -222,37 +254,17 @@
             border-radius: 12px;
             margin-top: 20px;
         }
-
+        
         .installed-status {
             background: rgba(16, 185, 129, 0.2);
             border: 1px solid rgba(16, 185, 129, 0.3);
         }
-
+        
         .browser-status {
             background: rgba(245, 158, 11, 0.2);
             border: 1px solid rgba(245, 158, 11, 0.3);
         }
-
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            border-top: 2px solid white;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-
+        
         #pwa-install-banner {
             display: none;
             position: fixed;
@@ -267,7 +279,7 @@
             z-index: 10000;
             box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
-
+        
         .banner-button {
             background: white;
             color: #764ba2;
@@ -277,65 +289,94 @@
             font-weight: 600;
             margin: 5px;
             cursor: pointer;
+            transition: all 0.2s;
         }
-
-            .banner-button.secondary {
-                background: transparent;
-                color: white;
-                border: 1px solid white;
-            }
+        
+        .banner-button:active {
+            transform: scale(0.95);
+        }
+        
+        .banner-button.secondary {
+            background: transparent;
+            color: white;
+            border: 1px solid white;
+        }
+        
+        .feedback {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            padding: 12px;
+            border-radius: 8px;
+            text-align: center;
+            z-index: 9999;
+            display: none;
+        }
+        
+        .feedback.success {
+            background: rgba(16, 185, 129, 0.9);
+            color: white;
+        }
+        
+        .feedback.error {
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+        }
     </style>
 </head>
 <body>
+    <div id="feedback" class="feedback"></div>
+    
     <div class="container">
         <div class="header">
             <div class="logo">🏆 Floky</div>
             <div class="tagline">Challenge Friends Daily</div>
         </div>
-
+        
         <!-- Landing Screen -->
         <div id="landing-screen" class="screen active">
-            <div class="feature-card">
+            <div class="feature-card" onclick="showFeedback('30-Second Videos coming soon!', 'success')">
                 <div class="feature-icon">📹</div>
                 <div class="feature-title">30-Second Videos</div>
                 <div class="feature-desc">Share your daily progress with quick video updates</div>
             </div>
-
-            <div class="feature-card">
+            
+            <div class="feature-card" onclick="showFeedback('Social Challenges coming soon!', 'success')">
                 <div class="feature-icon">👥</div>
                 <div class="feature-title">Social Challenges</div>
                 <div class="feature-desc">Create and join challenges with friends worldwide</div>
             </div>
-
-            <div class="feature-card">
+            
+            <div class="feature-card" onclick="showFeedback('Daily Motivation coming soon!', 'success')">
                 <div class="feature-icon">🎯</div>
                 <div class="feature-title">Daily Motivation</div>
                 <div class="feature-desc">Build consistent habits through gamification</div>
             </div>
-
-            <div class="feature-card">
+            
+            <div class="feature-card" onclick="showFeedback('Brag Points & Streaks coming soon!', 'success')">
                 <div class="feature-icon">🏅</div>
                 <div class="feature-title">Brag Points & Streaks</div>
                 <div class="feature-desc">Earn rewards and maintain daily streaks</div>
             </div>
-
+            
             <button class="btn btn-primary" onclick="showAuth()">
                 🚀 Get Started
             </button>
-
+            
             <div class="app-status" id="app-status">
                 <div style="font-size: 16px; font-weight: 600;" id="status-title">✅ App Ready!</div>
                 <div style="font-size: 14px; opacity: 0.7; margin-top: 10px;" id="status-text">Floky is working perfectly</div>
             </div>
         </div>
-
+        
         <!-- Auth Screen -->
         <div id="auth-screen" class="screen">
             <div class="nav-tabs">
                 <div class="nav-tab active" onclick="showLogin()">Login</div>
                 <div class="nav-tab" onclick="showSignup()">Sign Up</div>
             </div>
-
+            
             <!-- Login Form -->
             <div id="login-form" class="auth-form">
                 <div id="login-error" class="error-message"></div>
@@ -348,10 +389,10 @@
                     <input type="password" id="login-password" class="form-input" placeholder="Enter your password">
                 </div>
                 <button class="btn btn-primary" onclick="login()">
-                    Login
+                    🔐 Login
                 </button>
             </div>
-
+            
             <!-- Signup Form -->
             <div id="signup-form" class="auth-form" style="display: none;">
                 <div id="signup-error" class="error-message"></div>
@@ -373,50 +414,50 @@
                     <input type="password" id="signup-confirm" class="form-input" placeholder="Confirm your password">
                 </div>
                 <button class="btn btn-primary" onclick="signup()">
-                    Create Account
+                    ✨ Create Account
                 </button>
             </div>
-
-            <button class="btn btn-secondary" onclick="showLanding()">Back to Home</button>
+            
+            <button class="btn btn-secondary" onclick="showLanding()">← Back to Home</button>
         </div>
-
+        
         <!-- Dashboard Screen -->
         <div id="dashboard-screen" class="screen">
             <div class="dashboard-cards">
-                <div class="stat-card">
+                <div class="stat-card" onclick="showFeedback('Brag Points: 150 🏆', 'success')">
                     <div class="stat-icon">🏆</div>
                     <div class="stat-number">150</div>
                     <div class="stat-label">Brag Points</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showFeedback('Day Streak: 7 days 🔥', 'success')">
                     <div class="stat-icon">🔥</div>
                     <div class="stat-number">7</div>
                     <div class="stat-label">Day Streak</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showFeedback('Active Challenges: 3 💪', 'success')">
                     <div class="stat-icon">💪</div>
                     <div class="stat-number">3</div>
                     <div class="stat-label">Active Challenges</div>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card" onclick="showFeedback('Videos This Week: 12 📹', 'success')">
                     <div class="stat-icon">📹</div>
                     <div class="stat-number">12</div>
                     <div class="stat-label">Videos This Week</div>
                 </div>
             </div>
-
-            <div class="feature-card">
+            
+            <div class="feature-card" onclick="showFeedback('Video recording coming soon! 📹', 'success')">
                 <div class="feature-title">🎯 Today's Challenge</div>
                 <div class="feature-desc">Record a 30-second video of your morning workout routine!</div>
-                <button class="btn btn-primary" style="margin-top: 16px;">
+                <button class="btn btn-primary" style="margin-top: 16px;" onclick="event.stopPropagation(); showFeedback('Recording feature coming soon! 🎬', 'success')">
                     📹 Record Video
                 </button>
             </div>
-
-            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            
+            <button class="btn btn-secondary" onclick="logout()">👋 Logout</button>
         </div>
     </div>
-
+    
     <div id="pwa-install-banner">
         <div style="font-weight: 700; margin-bottom: 10px;">📱 Install Floky App</div>
         <div style="font-size: 14px; margin-bottom: 15px;">Add to your home screen for the best experience!</div>
@@ -428,39 +469,64 @@
         // Global variables
         let deferredPrompt = null;
         let currentUser = null;
-
+        
+        // Show feedback message
+        function showFeedback(message, type = 'success') {
+            const feedback = document.getElementById('feedback');
+            feedback.textContent = message;
+            feedback.className = `feedback ${type}`;
+            feedback.style.display = 'block';
+            
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 3000);
+        }
+        
         // Check if running as installed PWA
         function isStandalone() {
-            return window.matchMedia('(display-mode: standalone)').matches ||
-                window.navigator.standalone ||
-                document.referrer.includes('android-app://');
+            return window.matchMedia('(display-mode: standalone)').matches || 
+                   window.navigator.standalone || 
+                   document.referrer.includes('android-app://');
         }
-
+        
         // Screen navigation
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
         }
-
-        function showLanding() { showScreen('landing-screen'); }
-        function showAuth() { showScreen('auth-screen'); }
-        function showDashboard() { showScreen('dashboard-screen'); }
-
+        
+        function showLanding() { 
+            showScreen('landing-screen'); 
+            showFeedback('Welcome back to Floky! 🏆', 'success');
+        }
+        
+        function showAuth() { 
+            showScreen('auth-screen'); 
+            showFeedback('Ready to join Floky? 🚀', 'success');
+        }
+        
+        function showDashboard() { 
+            showScreen('dashboard-screen'); 
+            showFeedback(`Welcome ${currentUser ? currentUser.username : 'User'}! 🎉`, 'success');
+        }
+        
         // Auth tab switching
         function showLogin() {
-            document.querySelector('.nav-tab.active').classList.remove('active');
-            document.querySelector('.nav-tab').classList.add('active');
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.nav-tab')[0].classList.add('active');
             document.getElementById('login-form').style.display = 'block';
             document.getElementById('signup-form').style.display = 'none';
+            showFeedback('Ready to login! 🔐', 'success');
         }
-
+        
         function showSignup() {
-            document.querySelector('.nav-tab.active').classList.remove('active');
+            document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.nav-tab')[1].classList.add('active');
             document.getElementById('login-form').style.display = 'none';
             document.getElementById('signup-form').style.display = 'block';
+            showFeedback('Create your Floky account! ✨', 'success');
         }
-
+        
         // Show error/success messages
         function showMessage(elementId, message, isError = true) {
             const el = document.getElementById(elementId);
@@ -468,94 +534,111 @@
             el.style.display = 'block';
             setTimeout(() => el.style.display = 'none', 5000);
         }
-
+        
         // Login function
         function login() {
             const email = document.getElementById('login-email').value;
             const password = document.getElementById('login-password').value;
-
+            
             if (!email || !password) {
                 showMessage('login-error', 'Please fill in all fields');
+                showFeedback('Please fill in all fields! ⚠️', 'error');
                 return;
             }
-
+            
+            showFeedback('Logging in... 🔄', 'success');
+            
             // Demo authentication - check localStorage
-            const users = JSON.parse(localStorage.getItem('floky_users') || '[]');
-            const user = users.find(u => u.email === email && u.password === password);
-
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('floky_current_user', JSON.stringify(user));
-                showDashboard();
-            } else {
-                showMessage('login-error', 'Invalid email or password');
-            }
+            setTimeout(() => {
+                const users = JSON.parse(localStorage.getItem('floky_users') || '[]');
+                const user = users.find(u => u.email === email && u.password === password);
+                
+                if (user) {
+                    currentUser = user;
+                    localStorage.setItem('floky_current_user', JSON.stringify(user));
+                    showDashboard();
+                } else {
+                    showMessage('login-error', 'Invalid email or password');
+                    showFeedback('Invalid credentials! Try again. ❌', 'error');
+                }
+            }, 1000);
         }
-
+        
         // Signup function
         function signup() {
             const username = document.getElementById('signup-username').value;
             const email = document.getElementById('signup-email').value;
             const password = document.getElementById('signup-password').value;
             const confirm = document.getElementById('signup-confirm').value;
-
+            
             if (!username || !email || !password || !confirm) {
                 showMessage('signup-error', 'Please fill in all fields');
+                showFeedback('Please fill in all fields! ⚠️', 'error');
                 return;
             }
-
+            
             if (password !== confirm) {
                 showMessage('signup-error', 'Passwords do not match');
+                showFeedback('Passwords do not match! ❌', 'error');
                 return;
             }
-
+            
             if (password.length < 6) {
                 showMessage('signup-error', 'Password must be at least 6 characters');
+                showFeedback('Password too short! Need 6+ characters. ⚠️', 'error');
                 return;
             }
-
+            
+            showFeedback('Creating account... ✨', 'success');
+            
             // Save user to localStorage
-            const users = JSON.parse(localStorage.getItem('floky_users') || '[]');
-
-            if (users.find(u => u.email === email)) {
-                showMessage('signup-error', 'Account with this email already exists');
-                return;
-            }
-
-            const newUser = { username, email, password, joinDate: new Date().toISOString() };
-            users.push(newUser);
-            localStorage.setItem('floky_users', JSON.stringify(users));
-
-            showMessage('signup-success', 'Account created successfully! You can now login.', false);
-
-            // Clear form and switch to login
-            document.getElementById('signup-username').value = '';
-            document.getElementById('signup-email').value = '';
-            document.getElementById('signup-password').value = '';
-            document.getElementById('signup-confirm').value = '';
-
-            setTimeout(showLogin, 2000);
+            setTimeout(() => {
+                const users = JSON.parse(localStorage.getItem('floky_users') || '[]');
+                
+                if (users.find(u => u.email === email)) {
+                    showMessage('signup-error', 'Account with this email already exists');
+                    showFeedback('Email already exists! Try logging in. ⚠️', 'error');
+                    return;
+                }
+                
+                const newUser = { username, email, password, joinDate: new Date().toISOString() };
+                users.push(newUser);
+                localStorage.setItem('floky_users', JSON.stringify(users));
+                
+                showMessage('signup-success', 'Account created successfully! You can now login.', false);
+                showFeedback('Account created! Welcome to Floky! 🎉', 'success');
+                
+                // Clear form and switch to login
+                document.getElementById('signup-username').value = '';
+                document.getElementById('signup-email').value = '';
+                document.getElementById('signup-password').value = '';
+                document.getElementById('signup-confirm').value = '';
+                
+                setTimeout(showLogin, 2000);
+            }, 1000);
         }
-
+        
         // Logout function
         function logout() {
             currentUser = null;
             localStorage.removeItem('floky_current_user');
             showLanding();
+            showFeedback('Logged out successfully! See you soon! 👋', 'success');
         }
-
+        
         // PWA installation
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then(result => {
                     if (result.outcome === 'accepted') {
-                        console.log('PWA installed');
+                        showFeedback('App installed successfully! 🎉', 'success');
                     }
                     deferredPrompt = null;
                     document.getElementById('pwa-install-banner').style.display = 'none';
                 });
             } else {
+                showFeedback('Tap share → Add to Home Screen! 📱', 'success');
                 alert('To install Floky:\
 \
 1. Tap share button in browser\
@@ -563,18 +646,19 @@
 3. Tap "Add"');
             }
         }
-
+        
         function dismissInstall() {
             document.getElementById('pwa-install-banner').style.display = 'none';
             localStorage.setItem('pwa-dismissed', Date.now());
+            showFeedback('You can install later! 👍', 'success');
         }
-
+        
         // Update app status
         function updateStatus() {
             const statusDiv = document.getElementById('app-status');
             const statusTitle = document.getElementById('status-title');
             const statusText = document.getElementById('status-text');
-
+            
             if (isStandalone()) {
                 statusDiv.className = 'app-status installed-status';
                 statusTitle.textContent = '✅ App Installed Successfully!';
@@ -586,7 +670,7 @@
                 statusText.textContent = 'Install for better experience';
             }
         }
-
+        
         // Initialize app
         function initApp() {
             // Check if user is logged in
@@ -594,11 +678,13 @@
             if (savedUser) {
                 currentUser = JSON.parse(savedUser);
                 showDashboard();
+            } else {
+                showFeedback('Welcome to Floky! 🏆', 'success');
             }
-
+            
             updateStatus();
         }
-
+        
         // Event listeners
         window.addEventListener('beforeinstallprompt', e => {
             e.preventDefault();
@@ -607,12 +693,12 @@
                 document.getElementById('pwa-install-banner').style.display = 'block';
             }
         });
-
+        
         window.addEventListener('appinstalled', () => {
-            console.log('PWA installed');
+            showFeedback('Floky installed! Open from home screen! 🎉', 'success');
             updateStatus();
         });
-
+        
         // Service worker registration
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
@@ -621,15 +707,18 @@
                     .catch(err => console.log('SW registration failed'));
             });
         }
-
+        
         // Initialize when page loads
         window.addEventListener('load', initApp);
-
+        
         // Check for dismissed install banner
         const dismissed = localStorage.getItem('pwa-dismissed');
         if (dismissed && (Date.now() - dismissed < 604800000) && !isStandalone()) {
             document.getElementById('pwa-install-banner').style.display = 'none';
         }
+        
+        // Add touch feedback for mobile
+        document.addEventListener('touchstart', function() {}, {passive: true});
     </script>
 </body>
 </html>
