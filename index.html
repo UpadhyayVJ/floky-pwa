@@ -1,0 +1,209 @@
+<!doctype html>
+\n
+<html lang="en">
+\n
+<head>
+    \n
+    <meta charset="utf-8" />\n
+    <meta name="viewport" content="width=device-width,initial-scale=1" />\n
+    <meta name="theme-color" content="#764ba2" />\n
+    <meta name="description" content="Floky - Challenge friends daily with 30-second videos. Transform routines through fun social challenges. Install on any mobile device!" />\n
+    <meta name="apple-mobile-web-app-capable" content="yes">\n
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">\n
+    <meta name="apple-mobile-web-app-title" content="Floky">\n
+    <meta name="mobile-web-app-capable" content="yes">\n
+    <meta name="application-name" content="Floky">\n
+    <link rel="manifest" href="/manifest.json">\n
+    <title>Floky - Challenge Friends Daily</title>\n
+    <style>
+        \n * {
+            \n margin: 0;
+            \n padding: 0;
+            \n box-sizing: border-box;
+            \n
+        }
+
+        \n \n body {
+            \n font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', sans-serif;
+            \n background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            \n min-height: 100vh;
+            \n color: white;
+            \n overflow-x: hidden;
+            \n
+        }
+
+        \n \n .container {
+            \n max-width: 400px;
+            \n margin: 0 auto;
+            \n padding: 20px;
+            \n min-height: 100vh;
+            \n display: flex;
+            \n flex-direction: column;
+            \n
+        }
+
+        \n \n .header {
+            \n text-align: center;
+            \n padding: 40px 0;
+            \n
+        }
+
+        \n \n .logo {
+            \n font-size: 48px;
+            \n font-weight: bold;
+            \n margin-bottom: 10px;
+            \n text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            \n
+        }
+
+        \n \n .tagline {
+            \n font-size: 18px;
+            \n opacity: 0.9;
+            \n margin-bottom: 40px;
+            \n
+        }
+
+        \n \n .main-content {
+            \n flex: 1;
+            \n display: flex;
+            \n flex-direction: column;
+            \n gap: 20px;
+            \n
+        }
+
+        \n \n .feature-card {
+            \n background: rgba(255, 255, 255, 0.1);
+            \n backdrop-filter: blur(10px);
+            \n border-radius: 16px;
+            \n padding: 24px;
+            \n border: 1px solid rgba(255, 255, 255, 0.2);
+            \n
+        }
+
+        \n \n .feature-icon {
+            \n font-size: 32px;
+            \n margin-bottom: 12px;
+            \n
+        }
+
+        \n \n .feature-title {
+            \n font-size: 20px;
+            \n font-weight: 600;
+            \n margin-bottom: 8px;
+            \n
+        }
+
+        \n \n .feature-desc {
+            \n font-size: 14px;
+            \n opacity: 0.8;
+            \n line-height: 1.4;
+            \n
+        }
+
+        \n \n .install-section {
+            \n text-align: center;
+            \n padding: 30px 0;
+            \n
+        }
+
+        \n \n .install-button {
+            \n background: white;
+            \n color: #764ba2;
+            \n border: none;
+            \n padding: 16px 32px;
+            \n border-radius: 25px;
+            \n font-size: 16px;
+            \n font-weight: 600;
+            \n cursor: pointer;
+            \n transition: transform 0.2s;
+            \n box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            \n
+        }
+
+            \n \n .install-button:hover {
+                \n transform: translateY(-2px);
+                \n
+            }
+
+        \n \n .app-status {
+            \n text-align: center;
+            \n padding: 20px;
+            \n background: rgba(255, 255, 255, 0.1);
+            \n border-radius: 12px;
+            \n margin-top: 20px;
+            \n
+        }
+
+        \n \n .status {
+            \n font-size: 14px;
+            \n opacity: 0.7;
+            \n margin-top: 10px;
+            \n
+        }
+
+        \n \n .installed-status {
+            \n background: rgba(16, 185, 129, 0.2);
+            \n border: 1px solid rgba(16, 185, 129, 0.3);
+            \n
+        }
+
+        \n \n .browser-status {
+            \n background: rgba(245, 158, 11, 0.2);
+            \n border: 1px solid rgba(245, 158, 11, 0.3);
+            \n
+        }
+
+        \n \n #pwa-install-banner {
+            \n display: none;
+            \n position: fixed;
+            \n bottom: 20px;
+            \n left: 20px;
+            \n right: 20px;
+            \n background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            \n color: white;
+            \n padding: 20px;
+            \n border-radius: 12px;
+            \n text-align: center;
+            \n z-index: 10000;
+            \n box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            \n
+        }
+
+        \n \n .banner-button {
+            \n background: white;
+            \n color: #764ba2;
+            \n border: none;
+            \n padding: 10px 20px;
+            \n border-radius: 20px;
+            \n font-weight: 600;
+            \n margin: 5px;
+            \n cursor: pointer;
+            \n
+        }
+
+            \n \n .banner-button.secondary {
+                \n background: transparent;
+                \n color: white;
+                \n border: 1px solid white;
+                \n
+            }
+
+        \n \n .debug-info {
+            \n background: rgba(0, 0, 0, 0.3);
+            \n border-radius: 8px;
+            \n padding: 15px;
+            \n margin-top: 20px;
+            \n font-size: 12px;
+            \n font-family: monospace;
+            \n
+        }
+
+        \n
+    </style>\n
+</head>\n
+<body>
+    \n    <div class="container">\n        <div class="header">\n            <div class="logo">🏆 Floky</div>\n            <div class="tagline">Challenge Friends Daily</div>\n        </div>\n        \n        <div class="main-content">\n            <div class="feature-card">\n                <div class="feature-icon">📹</div>\n                <div class="feature-title">30-Second Videos</div>\n                <div class="feature-desc">Share your daily progress with quick video updates</div>\n            </div>\n            \n            <div class="feature-card">\n                <div class="feature-icon">👥</div>\n                <div class="feature-title">Social Challenges</div>\n                <div class="feature-desc">Create and join challenges with friends worldwide</div>\n            </div>\n            \n            <div class="feature-card">\n                <div class="feature-icon">🎯</div>\n                <div class="feature-title">Daily Motivation</div>\n                <div class="feature-desc">Build consistent habits through gamification</div>\n            </div>\n            \n            <div class="feature-card">\n                <div class="feature-icon">🏅</div>\n                <div class="feature-title">Brag Points & Streaks</div>\n                <div class="feature-desc">Earn rewards and maintain daily streaks</div>\n            </div>\n        </div>\n        \n        <div class="install-section">\n            <button class="install-button" id="install-app" style="display: none;">\n                📱 Install Floky App\n            </button>\n            <div class="app-status" id="app-status">\n                <div style="font-size: 16px; font-weight: 600;" id="status-title">🔍 Checking app status...</div>\n                <div class="status" id="status-text">Please wait...</div>\n            </div>\n        </div>\n        \n        <div class="debug-info" id="debug-info">\n            <div><strong>Debug Info:</strong></div>\n            <div id="debug-content">Loading...</div>\n        </div>\n    </div>\n    \n    <div id="pwa-install-banner">\n        <div style="font-weight: 700; margin-bottom: 10px;">📱 Install Floky App</div>\n        <div style="font-size: 14px; margin-bottom: 15px;">Add to your home screen for the best experience!</div>\n        <button class="banner-button" id="install-button">Install</button>\n        <button class="banner-button secondary" id="dismiss-button">Later</button>\n    </div>\n\n
+    <script>\n        let deferredPrompt; \n        \n        // Check if app is running as installed PWA\n        function isRunningStandalone() {\n            return (window.matchMedia(\'(display-mode: standalone)\').matches) ||\n                   (window.navigator.standalone) ||\n                   document.referrer.includes(\'android-app://\');\n        }\n        \n        // Update app status display\n        function updateAppStatus() {\n            const statusDiv = document.getElementById(\'app-status\');\n            const statusTitle = document.getElementById(\'status-title\');\n            const statusText = document.getElementById(\'status-text\');\n            const installButton = document.getElementById(\'install-app\');\n            const installBanner = document.getElementById(\'pwa-install-banner\');\n            \n            if (isRunningStandalone()) {\n                // App is installed and running standalone\n                statusDiv.className = \'app-status installed-status\';\n                statusTitle.innerHTML = \'✅ App Installed Successfully!\';\n                statusText.innerHTML = \'Floky is running as a native app\';\n                installButton.style.display = \'none\';\n                installBanner.style.display = \'none\';\n            } else {\n                // App is running in browser\n                statusDiv.className = \'app-status browser-status\';\n                statusTitle.innerHTML = \'🌐 Running in Browser\';\n                statusText.innerHTML = \'Install for better experience\';\n                installButton.style.display = \'block\';\n            }\n        }\n        \n        // Register service worker\n        if (\'serviceWorker\' in navigator) {\n            window.addEventListener(\'load\', () => {\n                navigator.serviceWorker.register(\'/sw.js\')\n                    .then((registration) => {\n                        console.log(\'SW registered: \', registration);\n                        updateDebugInfo();\n                    })\n                    .catch((registrationError) => {\n                        console.log(\'SW registration failed: \', registrationError);\n                        updateDebugInfo();\n                    });\n            });\n        }\n        \n        // Update debug information\n        function updateDebugInfo() {\n            const debugContent = document.getElementById(\'debug-content\');\n            const info = [\n                `Standalone: ${isRunningStandalone()}`,\n                `Display Mode: ${window.matchMedia(\'(display-mode: standalone)\').matches}`,\n                `Navigator Standalone: ${window.navigator.standalone}`,\n                `Referrer: ${document.referrer}`,\n                `User Agent: ${navigator.userAgent.substring(0, 50)}...`,\n                `SW Support: ${\'serviceWorker\' in navigator}`,\n                `Install Prompt: ${deferredPrompt ? \'Available\' : \'Not Available\'}`\n            ];\n            debugContent.innerHTML = info.map(line => `<div>${line}</div>`).join(\'\');\n        }\n        \n        // PWA installation handlers\n        const installBanner = document.getElementById(\'pwa-install-banner\');\n        const installButton = document.getElementById(\'install-button\');\n        const dismissButton = document.getElementById(\'dismiss-button\');\n        const mainInstallButton = document.getElementById(\'install-app\');\n        \n        window.addEventListener(\'beforeinstallprompt\', (e) => {\n            e.preventDefault();\n            deferredPrompt = e;\n            \n            if (!isRunningStandalone()) {\n                installBanner.style.display = \'block\';\n            }\n            updateDebugInfo();\n        });\n        \n        function installApp() {\n            if (deferredPrompt) {\n                deferredPrompt.prompt();\n                deferredPrompt.userChoice.then((choiceResult) => {\n                    if (choiceResult.outcome === \'accepted\') {\n                        console.log(\'User accepted the install prompt\');\n                    }\n                    deferredPrompt = null;\n                    installBanner.style.display = \'none\';\n                    updateDebugInfo();\n                });\n            } else {\n                alert(\'To install Floky:\\\\n\\\\n1. Tap the share button in your browser\\\\n2. Select "Add to Home Screen"\\\\n3. Tap "Add" to install\');\n            }\n        }\n        \n        if (installButton) installButton.addEventListener(\'click\', installApp);\n        if (mainInstallButton) mainInstallButton.addEventListener(\'click\', installApp);\n        \n        if (dismissButton) {\n            dismissButton.addEventListener(\'click\', () => {\n                installBanner.style.display = \'none\';\n                localStorage.setItem(\'pwa-dismissed\', Date.now());\n            });\n        }\n        \n        // Check if previously dismissed (only for browser mode)\n        const dismissed = localStorage.getItem(\'pwa-dismissed\');\n        if (dismissed && (Date.now() - dismissed < 604800000) && !isRunningStandalone()) { // 7 days\n            installBanner.style.display = \'none\';\n        }\n        \n        // Initialize app\n        window.addEventListener(\'load\', () => {\n            updateAppStatus();\n            updateDebugInfo();\n            \n            setTimeout(() => {\n                console.log(\'Floky PWA loaded successfully\');\n                updateDebugInfo();\n            }, 1000);\n        });\n        \n        // Listen for display mode changes\n        window.matchMedia(\'(display-mode: standalone)\').addEventListener(\'change\', (e) => {\n            updateAppStatus();\n            updateDebugInfo();\n        });\n</script>\n
+</body>\n
+</html>\n```\n\n---\n\n## 🔄 **HOW TO UPDATE:**\n\n1. **Replace your current `index.html`** with the code above\n2. **Upload to Vercel** (drag the updated file to replace the old one)\n3. **Wait for deployment** (usually takes 1-2 minutes)\n4. **Test on mobile** - open the installed app from home screen\n\n---\n\n## 📱 **WHAT THIS FIX DOES:**\n\n✅ **Detects if app is installed** and running standalone  \n✅ **Hides installation prompts** when running as app  \n✅ **Shows different status** for browser vs installed app  \n✅ **Provides debug information** to help troubleshoot  \n\n---\n\n## 🔍 **TESTING STEPS:**\n\n1. **Update and redeploy** with the new code\n2. **Open installed app** from home screen - should show "✅ App Installed Successfully!"\n3. **Open in browser** - should show "🌐 Running in Browser" with install options\n4. **Check debug info** at bottom to see what\'s detected\n\n**Try this fix and let me know what you see!** 🚀'
+Observation: Create successful: /app/PWA-BEHAVIOR-FIX.md
