@@ -1,391 +1,635 @@
-
 <!doctype html>
-\n
 <html lang="en">
-\n
 <head>
-    \n
-    <meta charset="utf-8" />\n
-    <meta name="viewport" content="width=device-width,initial-scale=1" />\n
-    <meta name="theme-color" content="#764ba2" />\n
-    <meta name="description" content="Floky - Challenge friends daily with 30-second videos. Transform routines through fun social challenges. Install on any mobile device!" />\n
-    <meta name="apple-mobile-web-app-capable" content="yes">\n
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">\n
-    <meta name="apple-mobile-web-app-title" content="Floky">\n
-    <meta name="mobile-web-app-capable" content="yes">\n
-    <meta name="application-name" content="Floky">\n
-    <link rel="manifest" href="/manifest.json">\n
-    <title>Floky - Challenge Friends Daily</title>\n
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#764ba2" />
+    <meta name="description" content="Floky - Challenge friends daily with 30-second videos" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="Floky">
+    <link rel="manifest" href="/manifest.json">
+    <title>Floky - Challenge Friends Daily</title>
     <style>
-        \n * {
-            \n margin: 0;
-            \n padding: 0;
-            \n box-sizing: border-box;
-            \n
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-        \n \n body {
-            \n font-family: -apple-system, BlinkMacSystemFont, \'Segoe UI\', \'Roboto\', sans-serif;
-            \n background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            \n min-height: 100vh;
-            \n color: white;
-            \n overflow-x: hidden;
-            \n
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
         }
 
-        \n \n .container {
-            \n max-width: 400px;
-            \n margin: 0 auto;
-            \n padding: 20px;
-            \n min-height: 100vh;
-            \n display: flex;
-            \n flex-direction: column;
-            \n
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
         }
 
-        \n \n .header {
-            \n text-align: center;
-            \n padding: 40px 0;
-            \n
+        .header {
+            text-align: center;
+            padding: 40px 0;
         }
 
-        \n \n .logo {
-            \n font-size: 48px;
-            \n font-weight: bold;
-            \n margin-bottom: 10px;
-            \n text-shadow: 0 2px 4px rgba(0,0,0,0.3);
-            \n
+        .logo {
+            font-size: 48px;
+            font-weight: bold;
+            margin-bottom: 10px;
         }
 
-        \n \n .tagline {
-            \n font-size: 18px;
-            \n opacity: 0.9;
-            \n margin-bottom: 40px;
-            \n
+        .tagline {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 40px;
         }
 
-        \n \n .main-content {
-            \n flex: 1;
-            \n display: flex;
-            \n flex-direction: column;
-            \n gap: 20px;
-            \n
+        .screen {
+            display: none;
         }
 
-        \n \n .screen {
-            \n display: none;
-            \n
-        }
-
-            \n \n .screen.active {
-                \n display: flex;
-                \n flex-direction: column;
-                \n gap: 20px;
-                \n
+            .screen.active {
+                display: block;
             }
 
-        \n \n .feature-card {
-            \n background: rgba(255, 255, 255, 0.1);
-            \n backdrop-filter: blur(10px);
-            \n border-radius: 16px;
-            \n padding: 24px;
-            \n border: 1px solid rgba(255, 255, 255, 0.2);
-            \n
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        \n \n .feature-icon {
-            \n font-size: 32px;
-            \n margin-bottom: 12px;
-            \n
+        .feature-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
         }
 
-        \n \n .feature-title {
-            \n font-size: 20px;
-            \n font-weight: 600;
-            \n margin-bottom: 8px;
-            \n
+        .feature-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 8px;
         }
 
-        \n \n .feature-desc {
-            \n font-size: 14px;
-            \n opacity: 0.8;
-            \n line-height: 1.4;
-            \n
+        .feature-desc {
+            font-size: 14px;
+            opacity: 0.8;
+            line-height: 1.4;
         }
 
-        \n \n .auth-form {
-            \n background: rgba(255, 255, 255, 0.1);
-            \n backdrop-filter: blur(10px);
-            \n border-radius: 16px;
-            \n padding: 24px;
-            \n border: 1px solid rgba(255, 255, 255, 0.2);
-            \n
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-bottom: 12px;
+            transition: transform 0.2s;
         }
 
-        \n \n .form-group {
-            \n margin-bottom: 20px;
-            \n
+        .btn-primary {
+            background: white;
+            color: #764ba2;
         }
 
-            \n \n .form-group label {
-                \n display: block;
-                \n margin-bottom: 8px;
-                \n font-weight: 600;
-                \n
+            .btn-primary:hover {
+                transform: translateY(-2px);
             }
 
-        \n \n .form-input {
-            \n width: 100%;
-            \n padding: 12px 16px;
-            \n border: 2px solid rgba(255, 255, 255, 0.3);
-            \n border-radius: 8px;
-            \n background: rgba(255, 255, 255, 0.1);
-            \n color: white;
-            \n font-size: 16px;
-            \n
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-            \n \n .form-input::placeholder {
-                \n color: rgba(255, 255, 255, 0.7);
-                \n
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: 600;
             }
 
-            \n \n .form-input:focus {
-                \n outline: none;
-                \n border-color: rgba(255, 255, 255, 0.8);
-                \n background: rgba(255, 255, 255, 0.2);
-                \n
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 16px;
+        }
+
+            .form-input::placeholder {
+                color: rgba(255, 255, 255, 0.7);
             }
 
-        \n \n .btn {
-            \n width: 100%;
-            \n padding: 16px;
-            \n border: none;
-            \n border-radius: 12px;
-            \n font-size: 16px;
-            \n font-weight: 600;
-            \n cursor: pointer;
-            \n transition: all 0.3s ease;
-            \n margin-bottom: 12px;
-            \n
-        }
-
-        \n \n .btn-primary {
-            \n background: white;
-            \n color: #764ba2;
-            \n
-        }
-
-            \n \n .btn-primary:hover {
-                \n transform: translateY(-2px);
-                \n box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-                \n
+            .form-input:focus {
+                outline: none;
+                border-color: rgba(255, 255, 255, 0.8);
             }
 
-        \n \n .btn-secondary {
-            \n background: rgba(255, 255, 255, 0.2);
-            \n color: white;
-            \n border: 1px solid rgba(255, 255, 255, 0.3);
-            \n
+        .nav-tabs {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 20px;
         }
 
-            \n \n .btn-secondary:hover {
-                \n background: rgba(255, 255, 255, 0.3);
-                \n
+        .nav-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+            .nav-tab.active {
+                background: white;
+                color: #764ba2;
             }
 
-        \n \n .app-status {
-            \n text-align: center;
-            \n padding: 20px;
-            \n background: rgba(255, 255, 255, 0.1);
-            \n border-radius: 12px;
-            \n margin-top: 20px;
-            \n
+        .auth-form {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        \n \n .status {
-            \n font-size: 14px;
-            \n opacity: 0.7;
-            \n margin-top: 10px;
-            \n
+        .error-message, .success-message {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            text-align: center;
+            display: none;
         }
 
-        \n \n .installed-status {
-            \n background: rgba(16, 185, 129, 0.2);
-            \n border: 1px solid rgba(16, 185, 129, 0.3);
-            \n
+        .error-message {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid rgba(239, 68, 68, 0.3);
         }
 
-        \n \n .browser-status {
-            \n background: rgba(245, 158, 11, 0.2);
-            \n border: 1px solid rgba(245, 158, 11, 0.3);
-            \n
+        .success-message {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-        \n \n .dashboard-cards {
-            \n display: grid;
-            \n grid-template-columns: repeat(2, 1fr);
-            \n gap: 16px;
-            \n margin-bottom: 20px;
-            \n
+        .dashboard-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 20px;
         }
 
-        \n \n .stat-card {
-            \n background: rgba(255, 255, 255, 0.1);
-            \n backdrop-filter: blur(10px);
-            \n border-radius: 12px;
-            \n padding: 20px;
-            \n text-align: center;
-            \n border: 1px solid rgba(255, 255, 255, 0.2);
-            \n
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
-        \n \n .stat-icon {
-            \n font-size: 24px;
-            \n margin-bottom: 8px;
-            \n
+        .stat-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
         }
 
-        \n \n .stat-number {
-            \n font-size: 20px;
-            \n font-weight: bold;
-            \n margin-bottom: 4px;
-            \n
+        .stat-number {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 4px;
         }
 
-        \n \n .stat-label {
-            \n font-size: 12px;
-            \n opacity: 0.8;
-            \n
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
         }
 
-        \n \n .nav-tabs {
-            \n display: flex;
-            \n background: rgba(255, 255, 255, 0.1);
-            \n border-radius: 12px;
-            \n padding: 4px;
-            \n margin-bottom: 20px;
-            \n
+        .app-status {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            margin-top: 20px;
         }
 
-        \n \n .nav-tab {
-            \n flex: 1;
-            \n padding: 12px;
-            \n text-align: center;
-            \n border-radius: 8px;
-            \n cursor: pointer;
-            \n transition: all 0.3s ease;
-            \n font-weight: 600;
-            \n
+        .installed-status {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.3);
         }
 
-            \n \n .nav-tab.active {
-                \n background: white;
-                \n color: #764ba2;
-                \n
+        .browser-status {
+            background: rgba(245, 158, 11, 0.2);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
             }
 
-        \n \n .error-message {
-            \n background: rgba(239, 68, 68, 0.2);
-            \n border: 1px solid rgba(239, 68, 68, 0.3);
-            \n padding: 12px;
-            \n border-radius: 8px;
-            \n margin-bottom: 16px;
-            \n text-align: center;
-            \n
-        }
-
-        \n \n .success-message {
-            \n background: rgba(16, 185, 129, 0.2);
-            \n border: 1px solid rgba(16, 185, 129, 0.3);
-            \n padding: 12px;
-            \n border-radius: 8px;
-            \n margin-bottom: 16px;
-            \n text-align: center;
-            \n
-        }
-
-        \n \n #pwa-install-banner {
-            \n display: none;
-            \n position: fixed;
-            \n bottom: 20px;
-            \n left: 20px;
-            \n right: 20px;
-            \n background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            \n color: white;
-            \n padding: 20px;
-            \n border-radius: 12px;
-            \n text-align: center;
-            \n z-index: 10000;
-            \n box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-            \n
-        }
-
-        \n \n .banner-button {
-            \n background: white;
-            \n color: #764ba2;
-            \n border: none;
-            \n padding: 10px 20px;
-            \n border-radius: 20px;
-            \n font-weight: 600;
-            \n margin: 5px;
-            \n cursor: pointer;
-            \n
-        }
-
-            \n \n .banner-button.secondary {
-                \n background: transparent;
-                \n color: white;
-                \n border: 1px solid white;
-                \n
+            100% {
+                transform: rotate(360deg);
             }
-
-        \n \n .debug-info {
-            \n background: rgba(0, 0, 0, 0.3);
-            \n border-radius: 8px;
-            \n padding: 15px;
-            \n margin-top: 20px;
-            \n font-size: 12px;
-            \n font-family: monospace;
-            \n
         }
 
-        \n \n .loading {
-            \n display: flex;
-            \n align-items: center;
-            \n justify-content: center;
-            \n gap: 8px;
-            \n
+        #pwa-install-banner {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            z-index: 10000;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
         }
 
-        \n \n .spinner {
-            \n width: 20px;
-            \n height: 20px;
-            \n border: 2px solid rgba(255, 255, 255, 0.3);
-            \n border-top: 2px solid white;
-            \n border-radius: 50%;
-            \n animation: spin 1s linear infinite;
-            \n
+        .banner-button {
+            background: white;
+            color: #764ba2;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px;
+            cursor: pointer;
         }
 
-        \n \n @keyframes spin {
-            \n 0%
-
-        {
-            transform: rotate(0deg);
-        }
-
-        \n 100% {
-            transform: rotate(360deg);
-        }
-
-        \n
-        }
-        \n
-    </style>\n
-</head>\n
+            .banner-button.secondary {
+                background: transparent;
+                color: white;
+                border: 1px solid white;
+            }
+    </style>
+</head>
 <body>
-    \n    <div class="container">\n        <div class="header">\n            <div class="logo">🏆 Floky</div>\n            <div class="tagline">Challenge Friends Daily</div>\n        </div>\n        \n        <!-- Landing Screen -->\n        <div id="landing-screen" class="screen active">\n            <div class="main-content">\n                <div class="feature-card">\n                    <div class="feature-icon">📹</div>\n                    <div class="feature-title">30-Second Videos</div>\n                    <div class="feature-desc">Share your daily progress with quick video updates</div>\n                </div>\n                \n                <div class="feature-card">\n                    <div class="feature-icon">👥</div>\n                    <div class="feature-title">Social Challenges</div>\n                    <div class="feature-desc">Create and join challenges with friends worldwide</div>\n                </div>\n                \n                <div class="feature-card">\n                    <div class="feature-icon">🎯</div>\n                    <div class="feature-title">Daily Motivation</div>\n                    <div class="feature-desc">Build consistent habits through gamification</div>\n                </div>\n                \n                <div class="feature-card">\n                    <div class="feature-icon">🏅</div>\n                    <div class="feature-title">Brag Points & Streaks</div>\n                    <div class="feature-desc">Earn rewards and maintain daily streaks</div>\n                </div>\n            </div>\n            \n            <div class="install-section">\n                <button class="btn btn-primary" id="get-started-btn">\n                    🚀 Get Started\n                </button>\n                <div class="app-status" id="app-status">\n                    <div style="font-size: 16px; font-weight: 600;" id="status-title">🔍 Checking app status...</div>\n                    <div class="status" id="status-text">Please wait...</div>\n                </div>\n            </div>\n        </div>\n        \n        <!-- Auth Screen -->\n        <div id="auth-screen" class="screen">\n            <div class="nav-tabs">\n                <div class="nav-tab active" id="login-tab">Login</div>\n                <div class="nav-tab" id="signup-tab">Sign Up</div>\n            </div>\n            \n            <!-- Login Form -->\n            <div id="login-form" class="auth-form">\n                <div id="login-error" class="error-message" style="display: none;"></div>\n                <div class="form-group">\n                    <label for="login-email">Email</label>\n                    <input type="email" id="login-email" class="form-input" placeholder="Enter your email" required>\n                </div>\n                <div class="form-group">\n                    <label for="login-password">Password</label>\n                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password" required>\n                </div>\n                <button class="btn btn-primary" id="login-btn">\n                    <span class="btn-text">Login</span>\n                    <span class="loading" style="display: none;">\n                        <span class="spinner"></span>\n                        Logging in...\n                    </span>\n                </button>\n            </div>\n            \n            <!-- Signup Form -->\n            <div id="signup-form" class="auth-form" style="display: none;">\n                <div id="signup-error" class="error-message" style="display: none;"></div>\n                <div id="signup-success" class="success-message" style="display: none;"></div>\n                <div class="form-group">\n                    <label for="signup-username">Username</label>\n                    <input type="text" id="signup-username" class="form-input" placeholder="Choose a username" required>\n                </div>\n                <div class="form-group">\n                    <label for="signup-email">Email</label>\n                    <input type="email" id="signup-email" class="form-input" placeholder="Enter your email" required>\n                </div>\n                <div class="form-group">\n                    <label for="signup-password">Password</label>\n                    <input type="password" id="signup-password" class="form-input" placeholder="Create a password" required>\n                </div>\n                <div class="form-group">\n                    <label for="signup-confirm">Confirm Password</label>\n                    <input type="password" id="signup-confirm" class="form-input" placeholder="Confirm your password" required>\n                </div>\n                <button class="btn btn-primary" id="signup-btn">\n                    <span class="btn-text">Create Account</span>\n                    <span class="loading" style="display: none;">\n                        <span class="spinner"></span>\n                        Creating...\n                    </span>\n                </button>\n            </div>\n            \n            <button class="btn btn-secondary" id="back-to-landing">Back to Home</button>\n        </div>\n        \n        <!-- Dashboard Screen -->\n        <div id="dashboard-screen" class="screen">\n            <div class="dashboard-cards">\n                <div class="stat-card">\n                    <div class="stat-icon">🏆</div>\n                    <div class="stat-number">150</div>\n                    <div class="stat-label">Brag Points</div>\n                </div>\n                <div class="stat-card">\n                    <div class="stat-icon">🔥</div>\n                    <div class="stat-number">7</div>\n                    <div class="stat-label">Day Streak</div>\n                </div>\n                <div class="stat-card">\n                    <div class="stat-icon">💪</div>\n                    <div class="stat-number">3</div>\n                    <div class="stat-label">Active Challenges</div>\n                </div>\n                <div class="stat-card">\n                    <div class="stat-icon">📹</div>\n                    <div class="stat-number">12</div>\n                    <div class="stat-label">Videos This Week</div>\n                </div>\n            </div>\n            \n            <div class="feature-card">\n                <div class="feature-title">🎯 Today\'s Challenge</div>\n                <div class="feature-desc">Record a 30-second video of your morning workout routine!</div>\n                <button class="btn btn-primary" style="margin-top: 16px;">\n                    📹 Record Video\n                </button>\n            </div>\n            \n            <button class="btn btn-secondary" id="logout-btn">Logout</button>\n        </div>\n        \n        <div class="debug-info" id="debug-info">\n            <div><strong>Debug Info:</strong></div>\n            <div id="debug-content">Loading...</div>\n        </div>\n    </div>\n    \n    <div id="pwa-install-banner">\n        <div style="font-weight: 700; margin-bottom: 10px;">📱 Install Floky App</div>\n        <div style="font-size: 14px; margin-bottom: 15px;">Add to your home screen for the best experience!</div>\n        <button class="banner-button" id="install-button">Install</button>\n        <button class="banner-button secondary" id="dismiss-button">Later</button>\n    </div>\n\n
-    <script>\n        let deferredPrompt; \n        let currentUser = null; \n        \n        // Check if app is running as installed PWA\n        function isRunningStandalone() {\n            // Multiple detection methods for better accuracy\n            const standalone = window.matchMedia(\'(display-mode: standalone)\').matches;\n            const fullscreen = window.matchMedia(\'(display-mode: fullscreen)\').matches;\n            const minimalUi = window.matchMedia(\'(display-mode: minimal-ui)\').matches;\n            const navigatorStandalone = window.navigator.standalone === true;\n            const androidApp = document.referrer.includes(\'android-app://\');\n            \n            return standalone || fullscreen || minimalUi || navigatorStandalone || androidApp;\n        }\n        \n        // Update app status display\n        function updateAppStatus() {\n            const statusDiv = document.getElementById(\'app-status\');\n            const statusTitle = document.getElementById(\'status-title\');\n            const statusText = document.getElementById(\'status-text\');\n            const installBanner = document.getElementById(\'pwa-install-banner\');\n            \n            if (isRunningStandalone()) {\n                // App is installed and running standalone\n                statusDiv.className = \'app-status installed-status\';\n                statusTitle.innerHTML = \'✅ App Installed Successfully!\';\n                statusText.innerHTML = \'Floky is running as a native app\';\n                if (installBanner) installBanner.style.display = \'none\';\n            } else {\n                // App is running in browser\n                statusDiv.className = \'app-status browser-status\';\n                statusTitle.innerHTML = \'🌐 Running in Browser\';\n                statusText.innerHTML = \'Install for better experience\';\n            }\n        }\n        \n        // Screen navigation\n        function showScreen(screenId) {\n            document.querySelectorAll(\'.screen\').forEach(screen => {\n                screen.classList.remove(\'active\');\n            });\n            document.getElementById(screenId).classList.add(\'active\');\n        }\n        \n        // Update debug information\n        function updateDebugInfo() {\n            const debugContent = document.getElementById(\'debug-content\');\n            const info = [\n                `Standalone: ${isRunningStandalone()}`,\n                `Display Mode Standalone: ${window.matchMedia(\'(display-mode: standalone)\').matches}`,\n                `Navigator Standalone: ${window.navigator.standalone}`,\n                `Referrer: ${document.referrer}`,\n                `User Agent: ${navigator.userAgent.substring(0, 50)}...`,\n                `SW Support: ${\'serviceWorker\' in navigator}`,\n                `Install Prompt: ${deferredPrompt ? \'Available\' : \'Not Available\'}`,\n                `Current User: ${currentUser ? currentUser.username : \'Not logged in\'}`\n            ];\n            debugContent.innerHTML = info.map(line => `<div>${line}</div>`).join(\'\');\n        }\n        \n        // Simulate user storage\n        function saveUser(userData) {\n            localStorage.setItem(\'floky_user\', JSON.stringify(userData));\n            currentUser = userData;\n        }\n        \n        function loadUser() {\n            const saved = localStorage.getItem(\'floky_user\');\n            if (saved) {\n                currentUser = JSON.parse(saved);\n                return true;\n            }\n            return false;\n        }\n        \n        function clearUser() {\n            localStorage.removeItem(\'floky_user\');\n            currentUser = null;\n        }\n        \n        // Show error message\n        function showError(elementId, message) {\n            const errorEl = document.getElementById(elementId);\n            errorEl.textContent = message;\n            errorEl.style.display = \'block\';\n            setTimeout(() => {\n                errorEl.style.display = \'none\';\n            }, 5000);\n        }\n        \n        // Show success message\n        function showSuccess(elementId, message) {\n            const successEl = document.getElementById(elementId);\n            successEl.textContent = message;\n            successEl.style.display = \'block\';\n            setTimeout(() => {\n                successEl.style.display = \'none\';\n            }, 3000);\n        }\n        \n        // Toggle loading state\n        function setLoading(buttonId, isLoading) {\n            const btn = document.getElementById(buttonId);\n            const text = btn.querySelector(\'.btn-text\');\n            const loading = btn.querySelector(\'.loading\');\n            \n            if (isLoading) {\n                text.style.display = \'none\';\n                loading.style.display = \'flex\';\n                btn.disabled = true;\n            } else {\n                text.style.display = \'block\';\n                loading.style.display = \'none\';\n                btn.disabled = false;\n            }\n        }\n        \n        // Initialize app\n        function initApp() {\n            updateAppStatus();\n            updateDebugInfo();\n            \n            // Check if user is already logged in\n            if (loadUser()) {\n                showScreen(\'dashboard-screen\');\n            }\n        }\n        \n        // Event listeners\n        document.getElementById(\'get-started-btn\').addEventListener(\'click\', () => {\n            showScreen(\'auth-screen\');\n        });\n        \n        document.getElementById(\'back-to-landing\').addEventListener(\'click\', () => {\n            showScreen(\'landing-screen\');\n        });\n        \n        // Auth tab switching\n        document.getElementById(\'login-tab\').addEventListener(\'click\', () => {\n            document.getElementById(\'login-tab\').classList.add(\'active\');\n            document.getElementById(\'signup-tab\').classList.remove(\'active\');\n            document.getElementById(\'login-form\').style.display = \'block\';\n            document.getElementById(\'signup-form\').style.display = \'none\';\n        });\n        \n        document.getElementById(\'signup-tab\').addEventListener(\'click\', () => {\n            document.getElementById(\'signup-tab\').classList.add(\'active\');\n            document.getElementById(\'login-tab\').classList.remove(\'active\');\n            document.getElementById(\'signup-form\').style.display = \'block\';\n            document.getElementById(\'login-form\').style.display = \'none\';\n        });\n        \n        // Login functionality\n        document.getElementById(\'login-btn\').addEventListener(\'click\', async () => {\n            const email = document.getElementById(\'login-email\').value;\n            const password = document.getElementById(\'login-password\').value;\n            \n            if (!email || !password) {\n                showError(\'login-error\', \'Please fill in all fields\');\n                return;\n            }\n            \n            setLoading(\'login-btn\', true);\n            \n            // Simulate API call\n            setTimeout(() => {\n                setLoading(\'login-btn\', false);\n                \n                // Check if user exists in localStorage (demo)\n                const savedUsers = JSON.parse(localStorage.getItem(\'floky_users\') || \'[]\');\n                const user = savedUsers.find(u => u.email === email && u.password === password);\n                \n                if (user) {\n                    saveUser(user);\n                    showScreen(\'dashboard-screen\');\n                    updateDebugInfo();\n                } else {\n                    showError(\'login-error\', \'Invalid email or password\');\n                }\n            }, 2000);\n        });\n        \n        // Signup functionality\n        document.getElementById(\'signup-btn\').addEventListener(\'click\', async () => {\n            const username = document.getElementById(\'signup-username\').value;\n            const email = document.getElementById(\'signup-email\').value;\n            const password = document.getElementById(\'signup-password\').value;\n            const confirm = document.getElementById(\'signup-confirm\').value;\n            \n            if (!username || !email || !password || !confirm) {\n                showError(\'signup-error\', \'Please fill in all fields\');\n                return;\n            }\n            \n            if (password !== confirm) {\n                showError(\'signup-error\', \'Passwords do not match\');\n                return;\n            }\n            \n            if (password.length < 6) {\n                showError(\'signup-error\', \'Password must be at least 6 characters\');\n                return;\n            }\n            \n            setLoading(\'signup-btn\', true);\n            \n            // Simulate API call\n            setTimeout(() => {\n                setLoading(\'signup-btn\', false);\n                \n                // Save user to localStorage (demo)\n                const savedUsers = JSON.parse(localStorage.getItem(\'floky_users\') || \'[]\');\n                \n                // Check if user already exists\n                if (savedUsers.find(u => u.email === email)) {\n                    showError(\'signup-error\', \'An account with this email already exists\');\n                    return;\n                }\n                \n                const newUser = { username, email, password, joinDate: new Date().toISOString() };\n                savedUsers.push(newUser);\n                localStorage.setItem(\'floky_users\', JSON.stringify(savedUsers));\n                \n                showSuccess(\'signup-success\', \'Account created successfully! You can now login.\');\n                \n                // Clear form\n                document.getElementById(\'signup-username\').value = \'\';\n                document.getElementById(\'signup-email\').value = \'\';\n                document.getElementById(\'signup-password\').value = \'\';\n                document.getElementById(\'signup-confirm\').value = \'\';\n                \n                // Switch to login tab after delay\n                setTimeout(() => {\n                    document.getElementById(\'login-tab\').click();\n                }, 2000);\n            }, 2000);\n        });\n        \n        // Logout functionality\n        document.getElementById(\'logout-btn\').addEventListener(\'click\', () => {\n            clearUser();\n            showScreen(\'landing-screen\');\n            updateDebugInfo();\n        });\n        \n        // PWA installation handlers\n        const installBanner = document.getElementById(\'pwa-install-banner\');\n        const installButton = document.getElementById(\'install-button\');\n        const dismissButton = document.getElementById(\'dismiss-button\');\n        \n        window.addEventListener(\'beforeinstallprompt\', (e) => {\n            e.preventDefault();\n            deferredPrompt = e;\n            \n            if (!isRunningStandalone()) {\n                installBanner.style.display = \'block\';\n            }\n            updateDebugInfo();\n        });\n        \n        function installApp() {\n            if (deferredPrompt) {\n                deferredPrompt.prompt();\n                deferredPrompt.userChoice.then((choiceResult) => {\n                    if (choiceResult.outcome === \'accepted\') {\n                        console.log(\'User accepted the install prompt\');\n                    }\n                    deferredPrompt = null;\n                    installBanner.style.display = \'none\';\n                    updateDebugInfo();\n                });\n            } else {\n                alert(\'To install Floky:\\\\n\\\\n1. Tap the share button in your browser\\\\n2. Select "Add to Home Screen"\\\\n3. Tap "Add" to install\');\n            }\n        }\n        \n        if (installButton) installButton.addEventListener(\'click\', installApp);\n        \n        if (dismissButton) {\n            dismissButton.addEventListener(\'click\', () => {\n                installBanner.style.display = \'none\';\n                localStorage.setItem(\'pwa-dismissed\', Date.now());\n            });\n        }\n        \n        // Check if previously dismissed (only for browser mode)\n        const dismissed = localStorage.getItem(\'pwa-dismissed\');\n        if (dismissed && (Date.now() - dismissed < 604800000) && !isRunningStandalone()) { // 7 days\n            installBanner.style.display = \'none\';\n        }\n        \n        // Register service worker\n        if (\'serviceWorker\' in navigator) {\n            window.addEventListener(\'load\', () => {\n                navigator.serviceWorker.register(\'/sw.js\')\n                    .then((registration) => {\n                        console.log(\'SW registered: \', registration);\n                        updateDebugInfo();\n                    })\n                    .catch((registrationError) => {\n                        console.log(\'SW registration failed: \', registrationError);\n                        updateDebugInfo();\n                    });\n            });\n        }\n        \n        // Initialize app when loaded\n        window.addEventListener(\'load\', () => {\n            initApp();\n            \n            setTimeout(() => {\n                console.log(\'Floky PWA loaded successfully\');\n                updateDebugInfo();\n            }, 1000);\n        });\n        \n        // Listen for display mode changes\n        window.matchMedia(\'(display-mode: standalone)\').addEventListener(\'change\', (e) => {\n            updateAppStatus();\n            updateDebugInfo();\n        });\n        \n        // Listen for app installation\n        window.addEventListener(\'appinstalled\', (e) => {\n            console.log(\'PWA was installed\');\n            updateAppStatus();\n            updateDebugInfo();\n        });\n</script>\n
-</body>\n
-</html>'
+    <div class="container">
+        <div class="header">
+            <div class="logo">🏆 Floky</div>
+            <div class="tagline">Challenge Friends Daily</div>
+        </div>
+
+        <!-- Landing Screen -->
+        <div id="landing-screen" class="screen active">
+            <div class="feature-card">
+                <div class="feature-icon">📹</div>
+                <div class="feature-title">30-Second Videos</div>
+                <div class="feature-desc">Share your daily progress with quick video updates</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">👥</div>
+                <div class="feature-title">Social Challenges</div>
+                <div class="feature-desc">Create and join challenges with friends worldwide</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <div class="feature-title">Daily Motivation</div>
+                <div class="feature-desc">Build consistent habits through gamification</div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🏅</div>
+                <div class="feature-title">Brag Points & Streaks</div>
+                <div class="feature-desc">Earn rewards and maintain daily streaks</div>
+            </div>
+
+            <button class="btn btn-primary" onclick="showAuth()">
+                🚀 Get Started
+            </button>
+
+            <div class="app-status" id="app-status">
+                <div style="font-size: 16px; font-weight: 600;" id="status-title">✅ App Ready!</div>
+                <div style="font-size: 14px; opacity: 0.7; margin-top: 10px;" id="status-text">Floky is working perfectly</div>
+            </div>
+        </div>
+
+        <!-- Auth Screen -->
+        <div id="auth-screen" class="screen">
+            <div class="nav-tabs">
+                <div class="nav-tab active" onclick="showLogin()">Login</div>
+                <div class="nav-tab" onclick="showSignup()">Sign Up</div>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form">
+                <div id="login-error" class="error-message"></div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="login-email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="login-password" class="form-input" placeholder="Enter your password">
+                </div>
+                <button class="btn btn-primary" onclick="login()">
+                    Login
+                </button>
+            </div>
+
+            <!-- Signup Form -->
+            <div id="signup-form" class="auth-form" style="display: none;">
+                <div id="signup-error" class="error-message"></div>
+                <div id="signup-success" class="success-message"></div>
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" id="signup-username" class="form-input" placeholder="Choose a username">
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="signup-email" class="form-input" placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="signup-password" class="form-input" placeholder="Create a password">
+                </div>
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="signup-confirm" class="form-input" placeholder="Confirm your password">
+                </div>
+                <button class="btn btn-primary" onclick="signup()">
+                    Create Account
+                </button>
+            </div>
+
+            <button class="btn btn-secondary" onclick="showLanding()">Back to Home</button>
+        </div>
+
+        <!-- Dashboard Screen -->
+        <div id="dashboard-screen" class="screen">
+            <div class="dashboard-cards">
+                <div class="stat-card">
+                    <div class="stat-icon">🏆</div>
+                    <div class="stat-number">150</div>
+                    <div class="stat-label">Brag Points</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">🔥</div>
+                    <div class="stat-number">7</div>
+                    <div class="stat-label">Day Streak</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">💪</div>
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Active Challenges</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">📹</div>
+                    <div class="stat-number">12</div>
+                    <div class="stat-label">Videos This Week</div>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-title">🎯 Today's Challenge</div>
+                <div class="feature-desc">Record a 30-second video of your morning workout routine!</div>
+                <button class="btn btn-primary" style="margin-top: 16px;">
+                    📹 Record Video
+                </button>
+            </div>
+
+            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div id="pwa-install-banner">
+        <div style="font-weight: 700; margin-bottom: 10px;">📱 Install Floky App</div>
+        <div style="font-size: 14px; margin-bottom: 15px;">Add to your home screen for the best experience!</div>
+        <button class="banner-button" onclick="installApp()">Install</button>
+        <button class="banner-button secondary" onclick="dismissInstall()">Later</button>
+    </div>
+
+    <script>
+        // Global variables
+        let deferredPrompt = null;
+        let currentUser = null;
+
+        // Check if running as installed PWA
+        function isStandalone() {
+            return window.matchMedia('(display-mode: standalone)').matches ||
+                window.navigator.standalone ||
+                document.referrer.includes('android-app://');
+        }
+
+        // Screen navigation
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+        }
+
+        function showLanding() { showScreen('landing-screen'); }
+        function showAuth() { showScreen('auth-screen'); }
+        function showDashboard() { showScreen('dashboard-screen'); }
+
+        // Auth tab switching
+        function showLogin() {
+            document.querySelector('.nav-tab.active').classList.remove('active');
+            document.querySelector('.nav-tab').classList.add('active');
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('signup-form').style.display = 'none';
+        }
+
+        function showSignup() {
+            document.querySelector('.nav-tab.active').classList.remove('active');
+            document.querySelectorAll('.nav-tab')[1].classList.add('active');
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('signup-form').style.display = 'block';
+        }
+
+        // Show error/success messages
+        function showMessage(elementId, message, isError = true) {
+            const el = document.getElementById(elementId);
+            el.textContent = message;
+            el.style.display = 'block';
+            setTimeout(() => el.style.display = 'none', 5000);
+        }
+
+        // Login function
+        function login() {
+            const email = document.getElementById('login-email').value;
+            const password = document.getElementById('login-password').value;
+
+            if (!email || !password) {
+                showMessage('login-error', 'Please fill in all fields');
+                return;
+            }
+
+            // Demo authentication - check localStorage
+            const users = JSON.parse(localStorage.getItem('floky_users') || '[]');
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('floky_current_user', JSON.stringify(user));
+                showDashboard();
+            } else {
+                showMessage('login-error', 'Invalid email or password');
+            }
+        }
+
+        // Signup function
+        function signup() {
+            const username = document.getElementById('signup-username').value;
+            const email = document.getElementById('signup-email').value;
+            const password = document.getElementById('signup-password').value;
+            const confirm = document.getElementById('signup-confirm').value;
+
+            if (!username || !email || !password || !confirm) {
+                showMessage('signup-error', 'Please fill in all fields');
+                return;
+            }
+
+            if (password !== confirm) {
+                showMessage('signup-error', 'Passwords do not match');
+                return;
+            }
+
+            if (password.length < 6) {
+                showMessage('signup-error', 'Password must be at least 6 characters');
+                return;
+            }
+
+            // Save user to localStorage
+            const users = JSON.parse(localStorage.getItem('floky_users') || '[]');
+
+            if (users.find(u => u.email === email)) {
+                showMessage('signup-error', 'Account with this email already exists');
+                return;
+            }
+
+            const newUser = { username, email, password, joinDate: new Date().toISOString() };
+            users.push(newUser);
+            localStorage.setItem('floky_users', JSON.stringify(users));
+
+            showMessage('signup-success', 'Account created successfully! You can now login.', false);
+
+            // Clear form and switch to login
+            document.getElementById('signup-username').value = '';
+            document.getElementById('signup-email').value = '';
+            document.getElementById('signup-password').value = '';
+            document.getElementById('signup-confirm').value = '';
+
+            setTimeout(showLogin, 2000);
+        }
+
+        // Logout function
+        function logout() {
+            currentUser = null;
+            localStorage.removeItem('floky_current_user');
+            showLanding();
+        }
+
+        // PWA installation
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then(result => {
+                    if (result.outcome === 'accepted') {
+                        console.log('PWA installed');
+                    }
+                    deferredPrompt = null;
+                    document.getElementById('pwa-install-banner').style.display = 'none';
+                });
+            } else {
+                alert('To install Floky:\
+\
+1. Tap share button in browser\
+2. Select "Add to Home Screen"\
+3. Tap "Add"');
+            }
+        }
+
+        function dismissInstall() {
+            document.getElementById('pwa-install-banner').style.display = 'none';
+            localStorage.setItem('pwa-dismissed', Date.now());
+        }
+
+        // Update app status
+        function updateStatus() {
+            const statusDiv = document.getElementById('app-status');
+            const statusTitle = document.getElementById('status-title');
+            const statusText = document.getElementById('status-text');
+
+            if (isStandalone()) {
+                statusDiv.className = 'app-status installed-status';
+                statusTitle.textContent = '✅ App Installed Successfully!';
+                statusText.textContent = 'Running as native app';
+                document.getElementById('pwa-install-banner').style.display = 'none';
+            } else {
+                statusDiv.className = 'app-status browser-status';
+                statusTitle.textContent = '🌐 Running in Browser';
+                statusText.textContent = 'Install for better experience';
+            }
+        }
+
+        // Initialize app
+        function initApp() {
+            // Check if user is logged in
+            const savedUser = localStorage.getItem('floky_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                showDashboard();
+            }
+
+            updateStatus();
+        }
+
+        // Event listeners
+        window.addEventListener('beforeinstallprompt', e => {
+            e.preventDefault();
+            deferredPrompt = e;
+            if (!isStandalone()) {
+                document.getElementById('pwa-install-banner').style.display = 'block';
+            }
+        });
+
+        window.addEventListener('appinstalled', () => {
+            console.log('PWA installed');
+            updateStatus();
+        });
+
+        // Service worker registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(reg => console.log('SW registered'))
+                    .catch(err => console.log('SW registration failed'));
+            });
+        }
+
+        // Initialize when page loads
+        window.addEventListener('load', initApp);
+
+        // Check for dismissed install banner
+        const dismissed = localStorage.getItem('pwa-dismissed');
+        if (dismissed && (Date.now() - dismissed < 604800000) && !isStandalone()) {
+            document.getElementById('pwa-install-banner').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
